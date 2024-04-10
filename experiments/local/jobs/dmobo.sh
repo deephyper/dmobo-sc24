@@ -10,9 +10,6 @@ set -e
 # export scalarization="Linear"
 # export objective_scaler="quantile-uniform"
 
-
-
-
 exec_search_ () {
     export log_dir="output/$task/$repetition_i/dmobo-$scalarization-$objective_scaler"
 
