@@ -19,6 +19,8 @@ SEARCHES = {
     "DMOBO": "dhexp.search.dbo",
     "MOTPE": "dhexp.search.optuna_tpe",
     "NSGAII": "dhexp.search.optuna_nsgaii",
+    "BOTORCH": "dhexp.search.optuna_botorch",
+    "SMAC": "dhexp.search.smac",
 }
 
 

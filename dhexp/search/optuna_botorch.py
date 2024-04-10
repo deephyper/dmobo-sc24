@@ -10,14 +10,15 @@ def execute(
     lower_bounds=None,
     **kwargs,
 ):
-    """Execute the TPE algorithm."""
+    """Execute the BOTORCH algorithm."""
     execute_optuna(
         problem=problem,
         timeout=timeout,
         max_evals=max_evals,
         random_state=random_state,
         log_dir=log_dir,
-        method="TPE",
+        method="BOTORCH",
+        n_initial_points=10,
         lower_bounds=lower_bounds,
         **kwargs,
     )

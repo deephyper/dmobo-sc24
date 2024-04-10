@@ -18,3 +18,9 @@ pip install -e ".."
 
 # To install the `HPOBench/tabular` (the 4 regression problems) with `deephyper_benchmark`
 python -c "import deephyper_benchmark as dhb; dhb.install('HPOBench/tabular');"
+
+# Install SMAC3
+pip install smac==2.0.2
+
+# Install BoTorch
+pip install botorch==0.9.4

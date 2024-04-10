@@ -34,6 +34,7 @@ def execute_optuna(
     random_state,
     log_dir,
     method,
+    n_initial_points=None,
     lower_bounds=None,
     **kwargs,
 ):
@@ -66,12 +67,6 @@ def execute_optuna(
 
     logging.info(f"storage={storage}")
 
-    if "TPE" in method:
-        sampler = "TPE"
-    elif "NSGAII" in method:
-        sampler = "NSGAII"
-    else:
-        sampler = "DUMMY"
 
     study_name = os.path.basename(log_dir)
 
@@ -84,10 +79,11 @@ def execute_optuna(
         random_state=random_state,
         log_dir=log_dir,
         study_name=study_name,
-        sampler=sampler,
+        sampler=method,
         storage=storage,
         comm=comm,
         n_objectives=n_objectives,
+        n_initial_points=n_initial_points,
         moo_lower_bounds=lower_bounds,
         verbose=0,
     )
