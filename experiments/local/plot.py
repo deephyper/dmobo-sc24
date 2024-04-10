@@ -1,6 +1,6 @@
+import itertools
 import os
 import pathlib
-import itertools
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -24,31 +24,31 @@ pathlib.Path(figures_dir).mkdir(parents=False, exist_ok=True)
 
 tasks = [
     "navalpropulsion",
-    # "parkinsonstelemonitoring",
-    # "proteinstructure",
-    # "slicelocalization",
+    "parkinsonstelemonitoring",
+    "proteinstructure",
+    "slicelocalization",
 ]
 objective_columns = ["objective_0", "objective_1"]
 n_objectives = 2
 scalers = [
-    # "identity",
-    # "minmaxlog",
+    "identity",
+    "minmaxlog",
     "quantile-uniform",
 ]
 
 strategies = [
     "Linear",
-    # "Chebyshev",
-    # "PBI",
+    "Chebyshev",
+    "PBI",
 ]
 repetitions = list(range(10))
 
 other_results = [
     "random",
     "nsgaii",
-    # "motpe",
-    # "smac",
-    # "botorch"
+    "motpe",
+    "smac",
+    "botorch"
 ]
 
 

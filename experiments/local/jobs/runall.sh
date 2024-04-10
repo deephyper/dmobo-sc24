@@ -1,49 +1,50 @@
 #!/bin/bash
 
+set -e
+
 export tasks=("navalpropulsion" "parkinsonstelemonitoring" "proteinstructure" "slicelocalization")
 export repetitions=(0 1 2 3 4 5 6 7 8 9)
 export max_evals=200
 
-./random.sh
+. ./random.sh
 
-./nsgaii.sh
+. ./nsgaii.sh
 
-./motpe.sh
+. ./motpe.sh
 
-# TODO: setup variables for different variants of DMOBO
 # D-MOBO with Linear scalarization
 export scalarization="Linear"
 export objective_scaler="identity"
-./dmobo.sh
+. ./dmobo.sh
 
 export objective_scaler="minmaxlog"
-./dmobo.sh
+. ./dmobo.sh
 
 export objective_scaler="quantile-uniform"
-./dmobo.sh
+. ./dmobo.sh
 
 # D-MOBO with Chebyshev scalarization
 export scalarization="Chebyshev"
 export objective_scaler="identity"
-./dmobo.sh
+. ./dmobo.sh
 
 export objective_scaler="minmaxlog"
-./dmobo.sh
+. ./dmobo.sh
 
 export objective_scaler="quantile-uniform"
-./dmobo.sh
+. ./dmobo.sh
 
 # D-MOBO with Chebyshev scalarization
 export scalarization="PBI"
 export objective_scaler="identity"
-./dmobo.sh
+. ./dmobo.sh
 
 export objective_scaler="minmaxlog"
-./dmobo.sh
+. ./dmobo.sh
 
 export objective_scaler="quantile-uniform"
-./dmobo.sh
+. ./dmobo.sh
 
-./smac.sh
+. ./smac.sh
 
-./botorch.sh
+. ./botorch.sh

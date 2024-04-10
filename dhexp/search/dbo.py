@@ -41,7 +41,7 @@ def execute(
     scheduler_rate=0.1,
     filter_duplicated=False,
     objective_scaler="identity",
-    scalar_func="Chebyshev",
+    scalarization="Chebyshev",
     lower_bounds=None,
     acq_func_optimizer="sampling",
     **kwargs,
@@ -119,7 +119,7 @@ def execute(
         filter_failures="min",
         scheduler=scheduler,
         objective_scaler=objective_scaler,
-        moo_scalarization_strategy=scalar_func,
+        moo_scalarization_strategy=scalarization,
         moo_lower_bounds=lower_bounds,
         verbose=0,
     )
