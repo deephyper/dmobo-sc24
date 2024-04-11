@@ -4,6 +4,8 @@ REQUIRED = [
     "matplotlib",
     "pyaml",
     "optuna==3.4.0",
+    "smac==2.0.2",
+    "botorch==0.9.4",
 ]
 
 
