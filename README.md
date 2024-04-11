@@ -5,6 +5,8 @@ Experimental repository for the paper on "Parallel Multi-Objective Bayesian Hype
 
 ## Installation
 
+The installation requires Miniconda or Anaconda. See [Miniconda Documentation](https://docs.anaconda.com/free/miniconda/miniconda-install/).
+
 ### Local
 
 From the root of this repository:
