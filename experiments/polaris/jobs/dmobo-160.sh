@@ -15,7 +15,7 @@ source ../../../build/activate-dhenv.sh
 
 #!!! CONFIGURATION - START
 export problem="dhb_combo"
-export search="DBO"
+export search="DMOBO"
 export model="ET"
 export acq_func="UCBd"
 export scheduler_periode=48
@@ -24,11 +24,8 @@ export objective_scaler="quantile-uniform"
 export timeout=10800
 export random_state=42
 export scalar_func="Linear"
-export lower_bounds="0.85,None,None"
 export acq_func_optimizer="mixedga"
 #!!! CONFIGURATION - END
-
-export DEEPHYPER_BENCHMARK_MOO="1"
 
 export NDEPTH=16
 export NRANKS_PER_NODE=4
@@ -65,5 +62,4 @@ mpiexec -n ${NTOTRANKS} --ppn ${NRANKS_PER_NODE} \
     --timeout $timeout \
     --filter-duplicated 1 \
     --scalarization $scalar_func \
-    --acq-func-optimizer $acq_func_optimizer \
-    --lower-bounds $lower_bounds
+    --acq-func-optimizer $acq_func_optimizer

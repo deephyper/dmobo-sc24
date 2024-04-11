@@ -15,7 +15,7 @@ source ../../../build/activate-dhenv.sh
 
 #!!! CONFIGURATION - START
 export problem="dhb_combo"
-export search="DBO"
+export search="DMOBO"
 export model="ET"
 export acq_func="UCBd"
 export scheduler_periode=48
@@ -27,8 +27,6 @@ export scalar_func="Linear"
 export lower_bounds="0.85,None,None"
 export acq_func_optimizer="mixedga"
 #!!! CONFIGURATION - END
-
-export DEEPHYPER_BENCHMARK_MOO="1"
 
 export NDEPTH=16
 export NRANKS_PER_NODE=4

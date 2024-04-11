@@ -10,22 +10,14 @@ set -xe
 
 cd ${PBS_O_WORKDIR}
 
-
 source ../../../build/activate-dhenv.sh
 
 #!!! CONFIGURATION - START
 export problem="dhb_combo"
-export search="DMOBO"
-export model="ET"
-export acq_func="UCBd"
-export scheduler_periode=48
-export scheduler_rate=0.1
-export objective_scaler="quantile-uniform"
+export search="MOTPE"
 export timeout=10200
 export random_state=42
-export scalar_func="Linear"
 export lower_bounds="0.85,None,None"
-export acq_func_optimizer="mixedga"
 #!!! CONFIGURATION - END
 
 export NDEPTH=16
@@ -35,14 +27,25 @@ export NTOTRANKS=$(( $NNODES * $NRANKS_PER_NODE ))
 export OMP_NUM_THREADS=$NDEPTH
 
 
-export log_dir="output/dmobo-P-10"
+export log_dir="output/motpe-P-10"
 mkdir -p $log_dir
 
-# Setup Redis Database
-pushd $log_dir
-redis-server $REDIS_CONF &
-export DEEPHYPER_DB_HOST=$HOST
-popd
+### Setup Postgresql Database - START ###
+export OPTUNA_DB_DIR="$log_dir/optunadb"
+export OPTUNA_DB_HOST=$HOST
+initdb -D "$OPTUNA_DB_DIR"
+
+# Set authentication policy to "trust" for all users
+echo "host    all             all             .hsn.cm.polaris.alcf.anl.gov               trust" >> "$OPTUNA_DB_DIR/pg_hba.conf"
+
+# Set the limit of max connections to 2048
+sed -i "s/max_connections = 100/max_connections = 2048/" "$OPTUNA_DB_DIR/postgresql.conf"
+
+# start the server in the background and listen to all interfaces
+pg_ctl -D $OPTUNA_DB_DIR -l "$log_dir/db.log" -o "-c listen_addresses='*'" start
+
+createdb hpo
+### Setup Postgresql Database - END ###
 
 sleep 5
 
@@ -52,16 +55,10 @@ mpiexec -n ${NTOTRANKS} --ppn ${NRANKS_PER_NODE} \
     --envall \
     ../set_affinity_gpu_polaris.sh python -m dhexp.run --problem $problem \
     --search $search \
-    --model $model \
-    --acq-func $acq_func \
-    --objective-scaler $objective_scaler \
-    --scheduler 1 \
-    --scheduler-periode $scheduler_periode \
-    --scheduler-rate $scheduler_rate \
     --random-state $random_state \
     --log-dir $log_dir \
     --timeout $timeout \
-    --filter-duplicated 1 \
-    --scalarization $scalar_func \
-    --acq-func-optimizer $acq_func_optimizer \
     --lower-bounds $lower_bounds
+
+dropdb hpo
+pg_ctl -D $OPTUNA_DB_DIR -l "$log_dir/db.log" stop
