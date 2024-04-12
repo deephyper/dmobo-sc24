@@ -9,6 +9,9 @@ conda create -p dhenv --clone base -y
 conda activate dhenv/
 pip install --upgrade pip
 
+# Install PostgreSQL
+conda install postgresql -y
+
 # Install Spack
 git clone -c feature.manyFiles=true https://github.com/spack/spack.git
 . ./spack/share/spack/setup-env.sh
